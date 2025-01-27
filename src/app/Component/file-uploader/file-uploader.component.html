@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header text-center bg-primary text-white">
+      <h2>Image Verification</h2>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="uploadFile()">
+        <div class="mb-3">
+          <label for="file" class="form-label">Upload Excel File:</label>
+          <input
+            type="file"
+            class="form-control"
+            id="file"
+            (change)="onFileChange($event)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="path" class="form-label">Image Path:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="path"
+            [(ngModel)]="path"
+            name="path"
+            required
+          />
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success w-100">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="results.length > 0" class="mt-4">
+    <h3>Results:</h3>
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>LAN ID</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of results">
+          <td>{{ result.lanId }}</td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="result.imageUploaded ? 'bg-success' : 'bg-danger'"
+            >
+              {{ result.imageUploaded ? 'Uploaded' : 'Missing' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- Download Button -->
+    <div class="text-center mt-3">
+      <button class="btn btn-primary" (click)="downloadPDF()">Download PDF</button>
+    </div>
+  </div>
+</div>
